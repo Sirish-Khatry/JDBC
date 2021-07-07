@@ -19,11 +19,12 @@ public class Runner {
 		scan.close();
 		CustomerDAO.setUSERNAME(username);
 		CustomerDAO.setPASSWORD(password);
-		createCustomer("Chris", "chris@gmail.com", "Las Vegas");
 		getAllCustomers();
-		updateCustomers(3, new Customer("Siriti", "sk@gmail.com", "Tokyo"));
+		createCustomer("Chris", "chris@gmail.com", "Las Vegas");
+//		updateCustomers(3, new Customer("Siriti", "sk@gmail.com", "Tokyo"));
 //		deleteCustomer(4);
 		getAllCustomers();
+		getACustomers(1);
 	}
 
 	private static void deleteCustomer(int i) {
@@ -46,6 +47,20 @@ public class Runner {
 		try {
 
 			customerTable.readAll();
+			customerTable.closeResources();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void getACustomers(int id) {
+		CustomerDAO customerTable = new CustomerDAO();
+
+		try {
+
+			customerTable.readOne(id);
 			customerTable.closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

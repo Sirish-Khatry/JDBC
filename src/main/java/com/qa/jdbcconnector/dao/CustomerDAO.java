@@ -80,6 +80,24 @@ public class CustomerDAO {
 		}
 
 	}
+	
+	public void readOne(int id) throws SQLException {
+		connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		statement = connection.prepareStatement("SELECT * FROM customers WHERE customer_id = ?");
+		statement.setInt(1, id);
+		ResultSet result = statement.executeQuery();
+
+		List<Customer> customers = new ArrayList<>();
+
+		while (result.next()) {
+			customers.add(linkToCustomer(result));
+		}
+
+		for (Customer c : customers) {
+			System.out.println(c);
+		}
+
+	}
 
 	public void create(String name, String email, String address) throws SQLException {
 		connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
